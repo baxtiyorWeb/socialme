@@ -2,8 +2,7 @@ import React, {useEffect} from 'react';
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {LOGIN} from "../../lib/routes";
 import {useAuth} from "./../hooks/auth"
-import {useLogin} from "../hooks/auth"
-import Navbar from "../navbar/index.jsx";
+import Navbar from "./navbar.jsx";
 
 export default function Layout() {
     const {pathname} = useLocation();
@@ -12,11 +11,11 @@ export default function Layout() {
 
 
     useEffect(() => {
-        if (pathname.startsWith("/protected") && !user) {
+        if (!isLoading && pathname.startsWith("/protected") && !user) {
             navigate(LOGIN)
 
         }
-    }, [pathname, user]);
+    }, [pathname, user, isLoading]);
 
     if (isLoading) return "Loading ..."
 
